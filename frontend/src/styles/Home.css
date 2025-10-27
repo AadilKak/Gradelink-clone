@@ -1,68 +1,211 @@
 /* Container for the whole page */
-div {
+body, div {
   font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
-
-/* Styles for the notes section */
-.notes-section {
+/* Center container helper */
+.centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* horizontally center everything inside */
+} 
+/* Project title */
+.project-title {
+  font-size: 20px; /* smaller than section title */
+  font-weight: normal;
+  text-align: left;
+  margin-bottom: 20px;
+  color: #333;
+}
+/* Students section */
+.students-section {
   margin-bottom: 2rem;
+  padding: 20px;
 }
 
-.notes-section h2 {
+.students-section h1,
+.students-section h2 {
   color: #333;
   font-size: 24px;
+  margin-bottom: 10px;
 }
 
-/* Styles for individual notes - assuming your Note component has some container element */
-.note {
+/* Section header with title + button */
+.students-header {
+  display: flex;
+  justify-content: center; /* center the header row */
+  align-items: center;
+  gap: 20px; /* spacing between title and button */
+  margin-bottom: 25px;
+}
+
+
+.section-title {
+  font-size: 26px;
+  font-weight: bold;
+  color: #007bff;
+}
+
+.enroll-button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.enroll-button:hover {
+  background-color: #218838;
+}
+
+/* Section title */
+.section-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+/* Enroll button */
+.enroll-button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.2s;
+}
+
+.enroll-button:hover {
+  background-color: #218838;
+}
+
+/* Students grid */
+.students-grid {
+  display: flex;
+  flex-direction: column; /* single column */
+  align-items: center; /* center horizontally */
+  gap: 10px; /* spacing between student cards */
+  width: 100%;
+}
+
+/* Student cards */
+.student-container {
   background-color: #f9f9f9;
   border-left: 5px solid #007bff;
   margin: 10px 0;
   padding: 10px 15px;
   border-radius: 5px;
+  display: flex;
+  flex-direction: column; /* stack contents vertically */
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 200%; /* fill left column */
 }
 
-/* Styles for the form section */
+.student-name {
+  color: #333;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.student-program {
+  color: #666;
+  font-size: 0.95rem;
+  margin-top: 4px;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+  background-color: #a71d2a;
+}
+
+/* Create student form */
 form {
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
-  margin: auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  max-width: 1600px;
+  width: 95%;
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  gap: 15px;
+  overflow-x: auto; /* horizontal scroll if needed */
 }
 
 form h2 {
-  color: #333;
-  font-size: 24px;
+  grid-column: 1 / -1; /* span all columns */
+  color: #007bff;
+  font-size: 26px;
   margin-bottom: 20px;
 }
 
 form label {
   font-weight: bold;
-  margin-top: 10px;
+  margin-bottom: 4px;
+  display: block;
 }
 
 form input,
-form textarea {
+form textarea,
+form select {
   width: 100%;
   padding: 8px;
-  margin: 8px 0 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  font-size: 14px;
 }
 
+/* Submit button */
 form input[type="submit"] {
-  background-color: #007bff;
+  grid-column: 1 / -1; /* span all columns */
+  background-color: #28a745;
   color: white;
-  padding: 10px 20px;
+  padding: 12px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
+  font-weight: bold;
+  transition: background 0.2s;
 }
 
 form input[type="submit"]:hover {
-  background-color: #0056b3;
+  background-color: #218838;
+}
+
+/* Cancel button */
+form button[type="button"] {
+  background-color: #dc3545;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+form button[type="button"]:hover {
+  background-color: #c82333;
 }

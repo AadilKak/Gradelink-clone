@@ -1,86 +1,93 @@
 import { useState, useEffect } from "react";
 import api from "../api";
-import Note from "../components/Note"
-import "../styles/Home.css"
+import "../styles/Home.css";
+import CreateStudentPopup from "../components/CreateStudentForm";
+import StudentCard from "../components/StudentCard";
 
-function Home() {
-    const [notes, setNotes] = useState([]);
-    const [content, setContent] = useState("");
-    const [title, setTitle] = useState("");
-
+export default function Home() {
+  const [showCreate, setShowCreate] = useState(false);
+  const [students, setStudents] = useState([]);
     useEffect(() => {
-        getNotes();
-    }, []);
-
-    const getNotes = () => {
-        api
-            .get("/api/notes/")
-            .then((res) => res.data)
-            .then((data) => {
-                setNotes(data);
-                console.log(data);
-            })
-            .catch((err) => alert(err));
+            getStudents();
+        }, []);
+    const getStudents = () => {
+    api
+        .get("/api/students/")
+        .then((res) => res.data)
+        .then((data) => {
+        setStudents(data);
+        console.log(data); // full student list
+        })
+        .catch((err) => {
+        if (err.response) {
+            console.error("Backend response:", err.response.data);
+            alert("Error fetching students: " + JSON.stringify(err.response.data, null, 2));
+        } else {
+            console.error("Axios error:", err);
+            alert("Error fetching students: " + err.message);
+        }
+        });
     };
 
-    const deleteNote = (id) => {
-        api
-            .delete(`/api/notes/delete/${id}/`)
-            .then((res) => {
-                if (res.status === 204) alert("Note deleted!");
-                else alert("Failed to delete note.");
-                getNotes();
-            })
-            .catch((error) => alert(error));
+    // Delete a student
+    const deleteStudent = (id) => {
+    api
+        .delete(`/api/students/${id}/`)
+        .then((res) => {
+        if (res.status === 204) alert("Student deleted!");
+        else alert("Failed to delete student.");
+        getStudents(); // refresh the list after deletion
+        })
+        .catch((err) => {
+        if (err.response) {
+            console.error("Backend response:", err.response.data);
+            alert("Error deleting student: " + JSON.stringify(err.response.data, null, 2));
+        } else {
+            console.error("Axios error:", err);
+            alert("Error deleting student: " + err.message);
+        }
+        });
     };
+  const handleCreated = (student) => {
+    
+    setStudents((prev) => [...prev, student]);
+  };
 
-    const createNote = (e) => {
-        e.preventDefault();
-        api
-            .post("/api/notes/", { content, title })
-            .then((res) => {
-                if (res.status === 201) alert("Note created!");
-                else alert("Failed to make note.");
-                getNotes();
-            })
-            .catch((err) => alert(err));
-    };
+  return (
+  <div className="p-6 students-section">
+  {/* Project title - smaller, left aligned */}
+  <h1 className="project-title">Student Enrollment System</h1>
 
-    return (
-        <div>
-            <div>
-                <h2>Notes</h2>
-                {notes.map((note) => (
-                   <Note note={note} onDelete={deleteNote} key={note.id}
-                   />
-                ))}
-            </div>
-            <h2>Create a Note</h2>
-            <form onSubmit={createNote}>
-                <label htmlFor="title">Title:</label>
-                <br />
-                <input
-                    type="text"
-                    id="title"
-                    name="title"
-                    required
-                    onChange={(e) => setTitle(e.target.value)}
-                    value={title}
-                />
-                <label htmlFor="content">Content:</label>
-                <br />
-                <textarea
-                    id="content"
-                    name="content"
-                    required
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                ></textarea>
-                <br />
-                <input type="submit" value="Submit"></input>
-            </form>
-        </div>
-    );
+  {/* Students enrolled section */}
+  <div className="students-header centered">
+    <h2 className="section-title">Students Enrolled</h2>
+    <button
+      onClick={() => setShowCreate(true)}
+      className="enroll-button"
+    >
+      Enroll a Student
+    </button>
+  </div>
+
+  {showCreate && (
+    <CreateStudentPopup
+      onClose={() => setShowCreate(false)}
+      onCreated={handleCreated}
+    />
+  )}
+
+  <div className="students-grid centered">
+    <div className="students-container centered">
+      {students.map((student) => (
+        <StudentCard
+          key={student.id}
+          student={student}
+          onDelete={deleteStudent}
+        />
+      ))}
+    </div>
+  </div>
+</div>
+);
+
 }
-
-export default Home;

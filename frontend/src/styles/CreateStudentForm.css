@@ -1,0 +1,96 @@
+/* Overlay for modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); /* dark translucent background */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* align top for tall forms */
+  padding-top: 20px;
+  z-index: 1000;
+}
+
+/* Modal content box */
+.modal-content {
+  background: #ffffff;
+  padding: 20px 30px;
+  border-radius: 10px;
+  width: 95%;
+  max-width: 1600px; /* very wide for grid */
+  max-height: 90vh;
+  overflow-y: auto; /* scroll vertically if needed */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  border: 2px solid #007bff; /* accent border */
+}
+
+/* Grid layout for the form */
+.student-form-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  gap: 15px;
+}
+
+/* Each form item stacked vertically */
+.student-form-grid div {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Form inputs and textareas */
+.modal-content input,
+.modal-content textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* Buttons container */
+.modal-buttons {
+  grid-column: span 4; /* span across all columns */
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+/* Generic button styling */
+.modal-content button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+/* Submit button styling */
+.modal-content button[type="submit"] {
+  background-color: #28a745; /* green for create */
+  color: white;
+}
+
+.modal-content button[type="submit"]:hover {
+  background-color: #218838;
+}
+
+/* Cancel button styling */
+.modal-content button[type="button"] {
+  background-color: #dc3545; /* red for cancel */
+  color: white;
+}
+
+.modal-content button[type="button"]:hover {
+  background-color: #c82333;
+}
+
+/* Optional: headers inside modal */
+.modal-content h2 {
+  margin-bottom: 20px;
+  color: #007bff;
+  font-size: 22px;
+}

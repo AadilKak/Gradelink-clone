@@ -1,0 +1,82 @@
+.student-container {
+  padding: 15px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fdfdfd;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 300px;
+}
+
+.student-info {
+  width: 100%;
+}
+
+.student-name {
+  color: #333;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.student-program {
+  color: #666;
+  font-size: 0.95rem;
+  margin-top: 4px;
+}
+
+.student-date {
+  color: #999;
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
+.student-buttons {
+  display: flex;
+  align-items: center;       /* vertically centers both buttons */
+  justify-content: space-between; 
+  width: 100%;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.edit-button,
+.delete-button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.1s;
+  min-width: 80px;
+  text-align: center;
+  line-height: 1;            /* 👈 ensures both have identical vertical alignment */
+  display: flex;             /* 👈 centers text vertically in the button box */
+  align-items: center;
+  justify-content: center;
+  
+}
+
+
+.edit-button {
+  background-color: #007bff;
+  color: white;
+  transform: translateY(5px);
+}
+
+.edit-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+.delete-button {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #c0392b;
+  transform: translateY(-1px);
+}
